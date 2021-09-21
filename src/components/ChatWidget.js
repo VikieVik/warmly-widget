@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import chatWidgetBubble from "../asset/chat-widget-bubble.svg";
+//import chatWidgetBubble from "../asset/chat-widget-bubble.svg";
 import { ChatWindow } from "../components/ChatWindow.js";
+import "../style.css";
 
 export function ChatWidget() {
-  const [chatWindowDisplay, setChatWindowDisplay] = useState("none");
+  const [chatWindowDisplay, setChatWindowDisplay] = useState("block");
 
   const widgetStyle = {
     position: "fixed",
@@ -28,9 +29,11 @@ export function ChatWidget() {
 
   return (
     <React.Fragment>
-      <button style={widgetStyle} onClick={toggleWidget}>
-        {/**        <img src={chatWidgetBubble} alt="chat-widget-logo" />
-         */}
+      <button
+        id="chat-widget-button"
+        style={widgetStyle}
+        onClick={toggleWidget}
+      >
         <svg
           width="28"
           height="28"

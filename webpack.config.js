@@ -19,14 +19,18 @@ module.exports = {
           loader: "babel-loader",
         },
       },
+      // {
+      //   test: /\.scss$/,
+      //   use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      // },
       {
-        test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
       },
-      {
-        test: /\.png|svg|jpg|gif$/,
-        use: ["file-loader"],
-      },
+      // {
+      //   test: /\.png|svg|jpg|gif$/,
+      //   use: ["file-loader"],
+      // },
     ],
   },
   plugins: [new MiniCssExtractPlugin()],
