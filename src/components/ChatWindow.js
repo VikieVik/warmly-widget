@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../style.css";
+import { w3cwebsocket as W3CWebSocket } from "websocket";
 
-export function ChatWindow() {
+const client = new W3CWebSocket("ws://localhost:8000/ws/chat/vikas/");
+
+export function ChatWindow(props) {
+  const [serverConnected, setServerConnected] = useState(false);
+  const [chats, setChats] = useState([]);
+
   const widgetStyle = {
     fontFamily: "Be Vietnam Pro, sans-serif",
     position: "fixed",
@@ -10,7 +16,7 @@ export function ChatWindow() {
     right: "20px",
     background: "#fff",
     boxShadow: "rgba(0, 0, 0, 0.16) 0px 5px 40px",
-    height: "650px",
+    height: "670px",
     width: "380px",
     border: "1px solid #dfdfdf",
     borderRadius: "20px",
@@ -42,10 +48,10 @@ export function ChatWindow() {
   };
 
   const textWindow = {
-    height: "460px",
+    height: "480px",
     width: "100%",
     marginBottom: "auto",
-    background: "#f9f9f9",
+    background: "#fafafa",
     borderRadius: "0px",
     overflowY: "scroll",
   };
@@ -65,6 +71,33 @@ export function ChatWindow() {
     fontWeight: "400",
   };
 
+  useEffect(() => {
+    console.log("running");
+
+    client.onopen = (socket) => {
+      console.log("WebSocket Client Connected");
+      setServerConnected(true);
+    };
+    client.onmessage = (message) => {
+      let incomingMessage = JSON.parse(message.data).message.content;
+      console.log(incomingMessage);
+      let newChats = [...chats, incomingMessage];
+      setChats(newChats);
+    };
+
+    // client.send(
+    //   JSON.stringify({
+    //     command: "new_message",
+    //     room_name: "vikas",
+    //     token: "123456",
+    //     user_id: "44",
+    //     device_id: "66",
+    //     from: "user",
+    //     text: "hello need help",
+    //   })
+    // );
+  });
+
   return (
     <React.Fragment>
       <div style={widgetStyle} id="chat-window">
@@ -74,7 +107,7 @@ export function ChatWindow() {
         </div>
 
         <div style={textWindow}>
-          <ChatBubbleAgent chat="hello there how may i help nothing just checking out your website nothing just checking out your website" />
+          {/* <ChatBubbleAgent chat="hello there how may i help nothing just checking out your website nothing just checking out your website" />
           <ChatBubbleUser chat="nothing just checking out your website" />
           <ChatBubbleUser chat="nothing just checking out your website" />
           <ChatBubbleUser chat="nothing just checking out your website" />
@@ -85,7 +118,16 @@ export function ChatWindow() {
           <ChatBubbleUser chat="nothing just checking out your website" />
           <ChatBubbleAgent chat="hello there how may i help" />
           <ChatBubbleAgent chat="hello there how may i help" />
-          <ChatBubbleAgent chat="q" />
+          <ChatBubbleAgent chat="q" /> */}
+
+          {chats.map((chat, index) => {
+            return <ChatBubbleAgent chat={chat} key={index} />;
+          })}
+
+          <ChatBubbleUser chat={"hello bro"} />
+          <ChatBubbleUser
+            chat={"Just wanted to know more about your product"}
+          />
         </div>
 
         <div style={fusionBranding}>
@@ -119,10 +161,10 @@ export function ChatWindow() {
               viewBox="0 0 26 20"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="feather feather-send"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="feather feather-send"
             >
               <line x1="22" y1="2" x2="11" y2="13"></line>
               <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
@@ -139,10 +181,11 @@ function ChatBubbleUser(props) {
     minHeight: "20px",
     display: "flex",
     padding: "10px",
-    width: "50%",
-    background: "#1890ff",
-    color: "#fff",
-    borderRadius: "5px",
+    width: "fit-content",
+    maxWidth: "90%",
+    background: "#eaeaea",
+    color: "#000",
+    borderRadius: "10px",
     margin: "10px 10px 10px 0px",
     marginLeft: "auto",
     fontWeight: "300",
@@ -161,10 +204,11 @@ function ChatBubbleAgent(props) {
     minHeight: "20px",
     display: "flex",
     padding: "10px",
-    width: "50%",
-    background: "#efefef",
-    color: "#000",
-    borderRadius: "5px",
+    width: "fit-content",
+    maxWidth: "90%",
+    background: "#1890ff",
+    color: "#fff",
+    borderRadius: "10px",
     margin: "10px 0px 10px 10px",
     marginRight: "auto",
     fontWeight: "300",

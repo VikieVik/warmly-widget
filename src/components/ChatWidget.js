@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-//import chatWidgetBubble from "../asset/chat-widget-bubble.svg";
-import { ChatWindow } from "../components/ChatWindow.js";
+import React, { useState, useEffect } from "react";
 import "../style.css";
+import { ChatWindow } from "../components/ChatWindow.js";
+import { w3cwebsocket as W3CWebSocket } from "websocket";
 
 export function ChatWidget() {
   const [chatWindowDisplay, setChatWindowDisplay] = useState("block");
@@ -50,6 +50,8 @@ export function ChatWidget() {
       </button>
 
       <div style={{ display: `${chatWindowDisplay}` }}>
+        {/**        <ChatWindow chats={chats} />
+         */}
         <ChatWindow />
       </div>
     </React.Fragment>
