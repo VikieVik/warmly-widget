@@ -19,21 +19,25 @@
   /* Chrome/Opera/Safari */
   color: #949494;
   font-size: "20px";
+  font-weight: 300;
 }
 #text-input::-moz-placeholder {
   /* Firefox 19+ */
   color: #949494;
   font-size: "20px";
+  font-weight: 300;
 }
 #text-input:-ms-input-placeholder {
   /* IE 10+ */
   color: #949494;
   font-size: "20px";
+  font-weight: 300;
 }
 #text-input:-moz-placeholder {
   /* Firefox 18- */
   color: #949494;
   font-size: "20px";
+  font-weight: 300;
 }
 
 #send-button {
@@ -48,15 +52,19 @@
   cursor: pointer;
 }
 
+#send-button:hover {
+  background: #56adff;
+}
+
 #chat-window {
   transition: all 1s ease-out;
 }
 
 #fusion-website-link {
   text-decoration: none;
-  font-size: 12px;
-  font-weight: 300;
-  color: #7d7d7d;
+  font-size: 13px;
+  font-weight: 400;
+  color: #b0b0b0;
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   backdrop-filter: blur(1px);

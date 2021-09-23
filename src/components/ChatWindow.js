@@ -6,6 +6,8 @@ const client = new W3CWebSocket("ws://localhost:8000/ws/chat/vikas/");
 
 export function ChatWindow(props) {
   const [serverConnected, setServerConnected] = useState(false);
+  const [userInput, setUserInput] = useState("");
+
   const [chats, setChats] = useState([]);
 
   const widgetStyle = {
@@ -71,31 +73,47 @@ export function ChatWindow(props) {
     fontWeight: "400",
   };
 
-  useEffect(() => {
-    console.log("running");
+  // handle input entered in input field
+  const handleUserInput = (event) => {
+    event.preventDefault();
+    setUserInput(event.target.value);
+  };
 
+  const handleSendButton = () => {
+    if (userInput !== "") {
+      handleWebSocketSend(userInput);
+    }
+  };
+
+  const handleWebSocketSend = (payloadToSend) => {
+    client.send(
+      JSON.stringify({
+        command: "new_message",
+        room_name: "vikas",
+        token: "123456",
+        user_id: "44",
+        device_id: "66",
+        from: "user",
+        text: `${payloadToSend}`,
+      })
+    );
+  };
+
+  useEffect(() => {
+    //console.log("widget running....");
+    //connecting to web-socket chat server
     client.onopen = (socket) => {
-      console.log("WebSocket Client Connected");
+      //console.log("WebSocket Client Connected");
       setServerConnected(true);
     };
-    client.onmessage = (message) => {
-      let incomingMessage = JSON.parse(message.data).message.content;
-      console.log(incomingMessage);
-      let newChats = [...chats, incomingMessage];
-      setChats(newChats);
-    };
 
-    // client.send(
-    //   JSON.stringify({
-    //     command: "new_message",
-    //     room_name: "vikas",
-    //     token: "123456",
-    //     user_id: "44",
-    //     device_id: "66",
-    //     from: "user",
-    //     text: "hello need help",
-    //   })
-    // );
+    // receives both chats received from agent and chat delivered from user
+    client.onmessage = (message) => {
+      let incomingMessage = JSON.parse(message.data).message;
+      //console.log(incomingMessage);
+      let updatedChats = [...chats, incomingMessage];
+      setChats(updatedChats);
+    };
   });
 
   return (
@@ -107,27 +125,14 @@ export function ChatWindow(props) {
         </div>
 
         <div style={textWindow}>
-          {/* <ChatBubbleAgent chat="hello there how may i help nothing just checking out your website nothing just checking out your website" />
-          <ChatBubbleUser chat="nothing just checking out your website" />
-          <ChatBubbleUser chat="nothing just checking out your website" />
-          <ChatBubbleUser chat="nothing just checking out your website" />
-          <ChatBubbleAgent chat="he" />
-          <ChatBubbleAgent chat="hello there how may i help" />
-          <ChatBubbleAgent chat="hello there how may i help" />
-          <ChatBubbleUser chat="nothing just checking out your website" />
-          <ChatBubbleUser chat="nothing just checking out your website" />
-          <ChatBubbleAgent chat="hello there how may i help" />
-          <ChatBubbleAgent chat="hello there how may i help" />
-          <ChatBubbleAgent chat="q" /> */}
-
+          {/** Render chats */}
           {chats.map((chat, index) => {
-            return <ChatBubbleAgent chat={chat} key={index} />;
+            if (chat.author == "user") {
+              return <ChatBubbleUser chat={chat.content} key={index} />;
+            } else {
+              return <ChatBubbleAgent chat={chat.content} key={index} />;
+            }
           })}
-
-          <ChatBubbleUser chat={"hello bro"} />
-          <ChatBubbleUser
-            chat={"Just wanted to know more about your product"}
-          />
         </div>
 
         <div style={fusionBranding}>
@@ -149,11 +154,12 @@ export function ChatWindow(props) {
           }}
         >
           <input
+            onChange={handleUserInput}
             id="text-input"
             type="text"
-            placeholder="Write your message here..."
+            placeholder="Reply here..."
           />
-          <button id="send-button">
+          <button id="send-button" onClick={handleSendButton}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
