@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../style.css";
-import { ChatWindow } from "../components/ChatWindow.js";
-import { w3cwebsocket as W3CWebSocket } from "websocket";
+import { ChatWindow } from "./ChatWindow";
+import { Popup } from "./Popup";
+import { MessagesContext } from "./MessagesContext";
 
 export function ChatWidget() {
-  const [chatWindowDisplay, setChatWindowDisplay] = useState("block");
+  const [chatWindowDisplay, setChatWindowDisplay] = useState("none");
+  const [popupDisplay, setPopupDisplay] = useState("block");
+
+  const [messages, setMessages] = useContext(MessagesContext);
 
   const widgetStyle = {
     position: "fixed",
@@ -22,8 +26,10 @@ export function ChatWidget() {
   const toggleWidget = () => {
     if (chatWindowDisplay == "none") {
       setChatWindowDisplay("block");
+      setPopupDisplay("none");
     } else {
       setChatWindowDisplay("none");
+      setPopupDisplay("block");
     }
   };
 
@@ -50,9 +56,11 @@ export function ChatWidget() {
       </button>
 
       <div style={{ display: `${chatWindowDisplay}` }}>
-        {/**        <ChatWindow chats={chats} />
-         */}
         <ChatWindow />
+      </div>
+
+      <div style={{ display: `${popupDisplay}` }}>
+        <Popup />
       </div>
     </React.Fragment>
   );

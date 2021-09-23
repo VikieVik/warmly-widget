@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../style.css";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
+import { MessagesContext } from "./MessagesContext";
 
 const client = new W3CWebSocket("ws://localhost:8000/ws/chat/vikas/");
 
 export function ChatWindow(props) {
   const [serverConnected, setServerConnected] = useState(false);
   const [userInput, setUserInput] = useState("");
+  const [messages, setMessages] = useContext(MessagesContext);
 
   const [chats, setChats] = useState([]);
 
@@ -113,6 +115,7 @@ export function ChatWindow(props) {
       //console.log(incomingMessage);
       let updatedChats = [...chats, incomingMessage];
       setChats(updatedChats);
+      setMessages(updatedChats);
     };
   });
 

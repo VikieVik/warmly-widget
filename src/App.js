@@ -1,5 +1,6 @@
 import React from "react";
 import { ChatWidget } from "./components/ChatWidget.js";
+import { MessagesContextProvider } from "./components/MessagesContext.js";
 
 export function App() {
   return (
@@ -13,7 +14,9 @@ export function App() {
       </p>
 
       <p style={{ marginTop: "200vh" }}>random text</p>
-      <ChatWidget />
+      <MessagesContextProvider>
+        <ChatWidget />
+      </MessagesContextProvider>
     </div>
   );
 }
