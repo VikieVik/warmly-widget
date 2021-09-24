@@ -1,5 +1,115 @@
 @import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
 
+/* Chat widget */
+
+#chat-widget-button {
+  position: fixed;
+  z-index: 2147483003;
+  bottom: 20px;
+  right: 20px;
+  border: 1px;
+  border-radius: 50px;
+  background: #1890ff;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Chat window */
+
+#chat-window {
+  font-family: Be Vietnam Pro, sans-serif;
+  position: fixed;
+  z-index: 2147483003;
+  bottom: 100px;
+  right: 20px;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 40px;
+  height: 670px;
+  width: 380px;
+  border: 1px solid #dfdfdf;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: max-height 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#top-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-height: 100px;
+  width: 100%;
+  background: #1890ff;
+  border-radius: 15px 15px 0px 0px;
+  margin-bottom: auto;
+  margin-top: 0px;
+}
+
+#header-text {
+  color: #fff;
+  margin: 0px 0px 10px 20px;
+  padding-top: 20px;
+  font-weight: 500;
+  font-size: 25px;
+}
+
+#description-text {
+  color: #fff;
+  margin: 0px 0px 0px 20px;
+  padding-bottom: 10px;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+#text-window {
+  height: 480px;
+  width: 100%;
+  margin-bottom: auto;
+  background: #fafafa;
+  border-radius: 0px;
+  overflow-y: scroll;
+}
+
+#fusion-branding {
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: auto;
+  background: #f9f9f9;
+  border-radius: 0px;
+  border-bottom: 1px solid #dfdfdf;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+#fusion-website-link {
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 400;
+  color: #b0b0b0;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  backdrop-filter: blur(1px);
+}
+
+#fusion-website-link:hover {
+  text-decoration: none;
+  color: #1890ff;
+}
+
+#input-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
 #text-input {
   border-radius: 10px;
   height: 25px;
@@ -56,10 +166,6 @@
   background: #56adff;
 }
 
-#chat-window {
-  transition: all 1s ease-out;
-}
-
 #fusion-website-link {
   text-decoration: none;
   font-size: 13px;
@@ -73,4 +179,161 @@
 #fusion-website-link:hover {
   text-decoration: none;
   color: #1890ff;
+}
+
+/* chat-bubbules */
+#user-chat-bubble {
+  min-height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  width: fit-content;
+  max-width: 85%;
+  background: #eaeaea;
+  color: #000;
+  border-radius: 10px;
+  margin: 10px 10px 10px 0px;
+  margin-left: auto;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+#agent-chat-bubble {
+  min-height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  width: fit-content;
+  max-width: 85%;
+  background: #1890ff;
+  color: #fff;
+  border-radius: 10px;
+  margin: 10px 0px 10px 10px;
+  margin-right: auto;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+/* popup */
+
+#popup-container {
+  font-family: Be Vietnam Pro, sans-serif;
+  position: fixed;
+  z-index: 2147483003;
+  bottom: 90px;
+  right: 20px;
+  background: transparent;
+  height: 450px;
+  max-width: 350px;
+  transition: max-height 0.2s ease;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#popup-bubble {
+  display: flex;
+  justify-content: center;
+  white-space: pre-line;
+  align-items: center;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+  min-height: 20px;
+  width: fit-content;
+  max-width: 90%;
+  border: 1px solid #dfdfdf;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: max-height 0.2s ease;
+  font-weight: 300;
+  font-size: 14px;
+  padding: 15px;
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+
+/* ------------------ Responsiveness --------------- */
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  #chat-widget-button {
+    bottom: 10px;
+    right: 10px;
+  }
+  /* Chat window */
+
+  #chat-window {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    bottom: 12%;
+    right: 0px;
+    background: #fff;
+    height: 88%;
+    width: 100%;
+    border-radius: 0px;
+    border: none;
+  }
+  #top-bar {
+    min-height: 100px;
+    width: 100%;
+    border-radius: 0px;
+    margin-top: 0px;
+  }
+
+  #header-text {
+    margin: 0px 0px 5px 10px;
+    padding-top: 15px;
+    font-weight: 400;
+    font-size: 25px;
+  }
+
+  #description-text {
+    margin: 0px 0px 0px 10px;
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  #text-window {
+    flex: 1 1 auto;
+  }
+
+  #text-input {
+    border-radius: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  #send-button {
+    height: 40px;
+    width: 40px;
+    margin-top: 8px;
+    margin-left: 5px;
+  }
+
+  #fusion-website-link {
+    font-weight: 300;
+    font-size: 14px;
+  }
+
+  #popup-container {
+    bottom: 80px;
+    right: 10px;
+    height: 40%;
+    max-width: 60%;
+  }
+
+  #popup-bubble {
+    min-height: 15px;
+    font-size: 12px;
+    padding: 10px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+  }
 }

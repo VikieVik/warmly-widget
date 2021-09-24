@@ -4,38 +4,29 @@ import { ChatWindow } from "./ChatWindow";
 import { Popup } from "./Popup";
 import { MessagesContext } from "./MessagesContext";
 import { UserMessageContext } from "./UserMessageContext";
+import { motion } from "framer-motion";
 
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 
 const client = new W3CWebSocket("ws://localhost:8000/ws/chat/vikas/");
 
 export function ChatWidget() {
-  const [chatWindowDisplay, setChatWindowDisplay] = useState("block");
+  const [chatWindowDisplay, setChatWindowDisplay] = useState("none");
   const [popupDisplay, setPopupDisplay] = useState("block");
   const [chats, setChats] = useState([]);
   const [messages, setMessages] = useContext(MessagesContext);
   const [userMessage, setUserMessage] = useContext(UserMessageContext);
   const [messagesForPopup, setMessagesForPopup] = useState([]);
-
-  const widgetStyle = {
-    position: "fixed",
-    zIndex: 2147483003,
-    bottom: "20px",
-    right: "20px",
-    background: "#1890ff",
-    height: "60px",
-    width: "60px",
-    border: "1px",
-    borderRadius: "50px",
-    cursor: "pointer",
-  };
+  const [chatOpen, setChatOpen] = useState(false);
 
   const toggleWidget = () => {
     if (chatWindowDisplay == "none") {
       setChatWindowDisplay("block");
+      setChatOpen(true);
       setPopupDisplay("none");
       setMessagesForPopup([]);
     } else {
+      setChatOpen(false);
       setChatWindowDisplay("none");
       setPopupDisplay("block");
     }
@@ -61,7 +52,7 @@ export function ChatWidget() {
     //console.log("widget running....");
     //connecting to web-socket chat server
     client.onopen = () => {
-      //console.log("WebSocket Client Connected");
+      console.log("WebSocket Client Connected");
       //setServerConnected(true);
     };
 
@@ -89,12 +80,29 @@ export function ChatWidget() {
 
   return (
     <React.Fragment>
-      <button
+      <motion.button
+        animate={{
+          Y: 0,
+          opacity: 1,
+          rotate: 360,
+        }}
+        initial={{
+          opacity: 0.01,
+          Y: 10,
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 25,
+          damping: 10,
+        }}
         id="chat-widget-button"
-        style={widgetStyle}
+        // style={widgetStyle}
         onClick={toggleWidget}
       >
+        {/** chat widget icon */}
+
         <svg
+          style={{ display: `${popupDisplay}`, marginLeft: "10px" }}
           width="28"
           height="28"
           viewBox="0 0 28 28"
@@ -107,15 +115,53 @@ export function ChatWidget() {
             fill="white"
           />
         </svg>
-      </button>
 
-      <div style={{ display: `${chatWindowDisplay}` }}>
+        {/** down arrow icon */}
+        <svg
+          style={{
+            display: `${chatWindowDisplay}`,
+            marginLeft: "12px",
+            marginTop: "2px",
+          }}
+          width="22"
+          height="14"
+          viewBox="0 0 22 14"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2 2L11 12L20 2"
+            stroke="white"
+            strokeWidth="4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </motion.button>
+
+      <motion.div
+        animate={chatOpen ? "open" : "closed"}
+        initial="closed"
+        variants={{
+          closed: { opacity: 0 },
+          open: { opacity: 1 },
+        }}
+        transition={{ duration: 0.2, ease: "easeIn" }}
+      >
         <ChatWindow />
-      </div>
+      </motion.div>
 
-      <div style={{ display: `${popupDisplay}` }}>
+      <motion.div
+        animate={chatOpen ? "closed" : "open"}
+        initial="closed"
+        variants={{
+          closed: { opacity: 0 },
+          open: { opacity: 1 },
+        }}
+        transition={{ duration: 0.2, ease: "easeIn" }}
+      >
         <Popup chats={messagesForPopup} />
-      </div>
+      </motion.div>
     </React.Fragment>
   );
 }

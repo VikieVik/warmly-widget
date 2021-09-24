@@ -2,74 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import "../style.css";
 import { MessagesContext } from "./MessagesContext";
 import { UserMessageContext } from "./UserMessageContext";
+import { motion } from "framer-motion";
 
 export function ChatWindow(props) {
   const [userMessage, setUserMessage] = useContext(UserMessageContext);
   const [messages, setMessages] = useContext(MessagesContext);
   const [userInput, setUserInput] = useState("");
-
-  const chatWindow = {
-    fontFamily: "Be Vietnam Pro, sans-serif",
-    position: "fixed",
-    zIndex: 2147483003,
-    bottom: "100px",
-    right: "20px",
-    background: "#fff",
-    boxShadow: "rgba(0, 0, 0, 0.16) 0px 5px 40px",
-    height: "670px",
-    width: "380px",
-    border: "1px solid #dfdfdf",
-    borderRadius: "20px",
-    cursor: "pointer",
-    transition: "max-height .2s ease",
-  };
-
-  const topBar = {
-    height: "100px",
-    width: "100%",
-    background: "#1890ff",
-    borderRadius: "15px 15px 0px 0px",
-    marginBottom: "auto",
-    marginTop: "0px",
-  };
-
-  const headerText = {
-    color: "#fff",
-    margin: "0px 0px 10px 20px",
-    paddingTop: "15px",
-    fontWeight: "500",
-    fontSize: "25px",
-  };
-  const descriptionText = {
-    color: "#fff",
-    margin: "0px 0px 0px 20px",
-    fontSize: "16px",
-    fontWeight: "300",
-  };
-
-  const textWindow = {
-    height: "480px",
-    width: "100%",
-    marginBottom: "auto",
-    background: "#fafafa",
-    borderRadius: "0px",
-    overflowY: "scroll",
-  };
-
-  const fusionBranding = {
-    height: "30px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    marginBottom: "auto",
-    background: "#f9f9f9",
-    borderRadius: "0px",
-    borderBottom: "1px solid #dfdfdf",
-    fontSize: "12px",
-    fontWeight: "400",
-  };
 
   // handle input entered in input field
   const handleUserInput = (event) => {
@@ -120,14 +58,13 @@ export function ChatWindow(props) {
 
   return (
     <React.Fragment>
-      <div style={chatWindow} id="chat-window">
-        <div></div>
-        <div style={topBar}>
-          <h1 style={headerText}>Hi there 👋</h1>
-          <h1 style={descriptionText}>We are away at this momment</h1>
+      <motion.div id="chat-window">
+        <div id="top-bar">
+          <h1 id="header-text">Hi there 👋</h1>
+          <h1 id="description-text">We are away at this momment </h1>
         </div>
 
-        <div style={textWindow}>
+        <div id="text-window">
           {/** Render chats */}
           {messages.map((chat, index) => {
             if (chat.author == "user") {
@@ -138,7 +75,7 @@ export function ChatWindow(props) {
           })}
         </div>
 
-        <div style={fusionBranding}>
+        <div id="fusion-branding">
           <a
             id="fusion-website-link"
             href="https://fusionhq.co"
@@ -148,14 +85,7 @@ export function ChatWindow(props) {
           </a>
         </div>
 
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "baseline",
-          }}
-        >
+        <div id="input-section">
           <input
             onChange={handleUserInput}
             id="text-input"
@@ -180,77 +110,23 @@ export function ChatWindow(props) {
             </svg>
           </button>
         </div>
-      </div>
+      </motion.div>
     </React.Fragment>
   );
 }
 
 function ChatBubbleUser(props) {
-  const UserChatBubble = {
-    minHeight: "20px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: "10px",
-    width: "fit-content",
-    maxWidth: "85%",
-    background: "#eaeaea",
-    color: "#000",
-    borderRadius: "10px",
-    margin: "10px 10px 10px 0px",
-    marginLeft: "auto",
-    fontWeight: "300",
-    fontSize: "14px",
-  };
-
-  const popupStyle = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    background: "#fff",
-    boxShadow: "rgba(0, 0, 0, 0.10) 0px 0px 10px",
-    minHeight: "20px",
-    width: "fit-content",
-    maxWidth: "90%",
-    border: "1px solid #dfdfdf",
-    borderRadius: "10px",
-    cursor: "pointer",
-    transition: "max-height .2s ease",
-    fontWeight: "300",
-    fontSize: "14px",
-    padding: "15px",
-    marginBottom: "5px",
-    marginTop: "5px",
-  };
-
   return (
     <React.Fragment>
-      <div style={UserChatBubble}>{props.chat}</div>
+      <div id="user-chat-bubble">{props.chat}</div>
     </React.Fragment>
   );
 }
 
 function ChatBubbleAgent(props) {
-  const agentChatBubble = {
-    minHeight: "20px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: "10px",
-    width: "fit-content",
-    maxWidth: "85%",
-    background: "#1890ff",
-    color: "#fff",
-    borderRadius: "10px",
-    margin: "10px 0px 10px 10px",
-    marginRight: "auto",
-    fontWeight: "300",
-    fontSize: "14px",
-  };
-
   return (
     <React.Fragment>
-      <div style={agentChatBubble}>{props.chat}</div>
+      <div id="agent-chat-bubble">{props.chat}</div>
     </React.Fragment>
   );
 }
