@@ -1,18 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../style.css";
-import { w3cwebsocket as W3CWebSocket } from "websocket";
 import { MessagesContext } from "./MessagesContext";
-
-const client = new W3CWebSocket("ws://localhost:8000/ws/chat/vikas/");
+import { UserMessageContext } from "./UserMessageContext";
 
 export function ChatWindow(props) {
-  const [serverConnected, setServerConnected] = useState(false);
-  const [userInput, setUserInput] = useState("");
+  const [userMessage, setUserMessage] = useContext(UserMessageContext);
   const [messages, setMessages] = useContext(MessagesContext);
+  const [userInput, setUserInput] = useState("");
 
-  const [chats, setChats] = useState([]);
-
-  const widgetStyle = {
+  const chatWindow = {
     fontFamily: "Be Vietnam Pro, sans-serif",
     position: "fixed",
     zIndex: 2147483003,
@@ -83,45 +79,49 @@ export function ChatWindow(props) {
 
   const handleSendButton = () => {
     if (userInput !== "") {
-      handleWebSocketSend(userInput);
+      //handleWebSocketSend(userInput);
+
+      // save Message to send into userMessage context
+      setUserMessage(userInput);
     }
   };
 
-  const handleWebSocketSend = (payloadToSend) => {
-    client.send(
-      JSON.stringify({
-        command: "new_message",
-        room_name: "vikas",
-        token: "123456",
-        user_id: "44",
-        device_id: "66",
-        from: "user",
-        text: `${payloadToSend}`,
-      })
-    );
-  };
+  // const handleWebSocketSend = (payloadToSend) => {
+  //   client.send(
+  //     JSON.stringify({
+  //       command: "new_message",
+  //       room_name: "vikas",
+  //       token: "123456",
+  //       user_id: "44",
+  //       device_id: "66",
+  //       from: "user",
+  //       text: `${payloadToSend}`,
+  //     })
+  //   );
+  // };
 
-  useEffect(() => {
-    //console.log("widget running....");
-    //connecting to web-socket chat server
-    client.onopen = (socket) => {
-      //console.log("WebSocket Client Connected");
-      setServerConnected(true);
-    };
+  // useEffect(() => {
+  //   //console.log("widget running....");
+  //   //connecting to web-socket chat server
+  //   client.onopen = (socket) => {
+  //     //console.log("WebSocket Client Connected");
+  //     setServerConnected(true);
+  //   };
 
-    // receives both chats received from agent and chat delivered from user
-    client.onmessage = (message) => {
-      let incomingMessage = JSON.parse(message.data).message;
-      //console.log(incomingMessage);
-      let updatedChats = [...chats, incomingMessage];
-      setChats(updatedChats);
-      setMessages(updatedChats);
-    };
-  });
+  //   // receives both chats received from agent and chat delivered from user
+  //   client.onmessage = (message) => {
+  //     let incomingMessage = JSON.parse(message.data).message;
+  //     //console.log(incomingMessage);
+  //     let updatedChats = [...chats, incomingMessage];
+  //     setChats(updatedChats);
+  //     setMessages(updatedChats);
+  //   };
+  // });
 
   return (
     <React.Fragment>
-      <div style={widgetStyle} id="chat-window">
+      <div style={chatWindow} id="chat-window">
+        <div></div>
         <div style={topBar}>
           <h1 style={headerText}>Hi there 👋</h1>
           <h1 style={descriptionText}>We are away at this momment</h1>
@@ -129,7 +129,7 @@ export function ChatWindow(props) {
 
         <div style={textWindow}>
           {/** Render chats */}
-          {chats.map((chat, index) => {
+          {messages.map((chat, index) => {
             if (chat.author == "user") {
               return <ChatBubbleUser chat={chat.content} key={index} />;
             } else {
@@ -189,9 +189,11 @@ function ChatBubbleUser(props) {
   const UserChatBubble = {
     minHeight: "20px",
     display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     padding: "10px",
     width: "fit-content",
-    maxWidth: "90%",
+    maxWidth: "85%",
     background: "#eaeaea",
     color: "#000",
     borderRadius: "10px",
@@ -199,6 +201,26 @@ function ChatBubbleUser(props) {
     marginLeft: "auto",
     fontWeight: "300",
     fontSize: "14px",
+  };
+
+  const popupStyle = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "#fff",
+    boxShadow: "rgba(0, 0, 0, 0.10) 0px 0px 10px",
+    minHeight: "20px",
+    width: "fit-content",
+    maxWidth: "90%",
+    border: "1px solid #dfdfdf",
+    borderRadius: "10px",
+    cursor: "pointer",
+    transition: "max-height .2s ease",
+    fontWeight: "300",
+    fontSize: "14px",
+    padding: "15px",
+    marginBottom: "5px",
+    marginTop: "5px",
   };
 
   return (
@@ -212,9 +234,11 @@ function ChatBubbleAgent(props) {
   const agentChatBubble = {
     minHeight: "20px",
     display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     padding: "10px",
     width: "fit-content",
-    maxWidth: "90%",
+    maxWidth: "85%",
     background: "#1890ff",
     color: "#fff",
     borderRadius: "10px",
