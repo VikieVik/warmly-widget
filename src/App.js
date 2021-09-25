@@ -2,19 +2,17 @@ import React from "react";
 import { ChatWidget } from "./components/ChatWidget.js";
 import { MessagesContextProvider } from "./components/MessagesContext.js";
 import { UserMessageContextProvider } from "./components/UserMessageContext.js";
+import { config } from "./config";
+import { readCookie } from "./utils.js";
 
-export function App() {
+console.log("App");
+
+export function App(props) {
+  console.log("App-1");
+
   return (
     <div>
-      <h1>React App</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem quos
-        delectus voluptatem ab repellat saepe eos molestiae cupiditate, omnis
-        doloremque, necessitatibus totam consectetur porro sint quam libero
-        aperiam? Laborum, quaerat?
-      </p>
-
-      <p style={{ marginTop: "200vh" }}>random text</p>
+      {/* {props.hello} */}
       <UserMessageContextProvider>
         <MessagesContextProvider>
           <ChatWidget />

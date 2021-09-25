@@ -5,12 +5,21 @@ import { Popup } from "./Popup";
 import { MessagesContext } from "./MessagesContext";
 import { UserMessageContext } from "./UserMessageContext";
 import { motion } from "framer-motion";
-
+import { config } from "../config";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 
-const client = new W3CWebSocket("ws://localhost:8000/ws/chat/vikas/");
+var client;
+console.log("chat-widget");
 
 export function ChatWidget() {
+  console.log("chat-widget-1");
+
+  //check if already intialized(otherwise throws error)
+  if (client == undefined) {
+    let room = `${config.userId}${config.deviceId}`;
+    client = new W3CWebSocket(`${config.baseUrl}${room}/`);
+  }
+
   const [chatWindowDisplay, setChatWindowDisplay] = useState("none");
   const [popupDisplay, setPopupDisplay] = useState("block");
   const [chats, setChats] = useState([]);
@@ -95,12 +104,10 @@ export function ChatWidget() {
           stiffness: 25,
           damping: 10,
         }}
-        id="chat-widget-button"
-        // style={widgetStyle}
+        id="chat-widget"
         onClick={toggleWidget}
       >
         {/** chat widget icon */}
-
         <svg
           style={{ display: `${popupDisplay}`, marginLeft: "10px" }}
           width="28"

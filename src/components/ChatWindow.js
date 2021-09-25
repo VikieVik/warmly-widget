@@ -3,8 +3,13 @@ import "../style.css";
 import { MessagesContext } from "./MessagesContext";
 import { UserMessageContext } from "./UserMessageContext";
 import { motion } from "framer-motion";
+import { config } from "../config";
+
+console.log("chat-window");
 
 export function ChatWindow(props) {
+  console.log("chat-window-1");
+
   const [userMessage, setUserMessage] = useContext(UserMessageContext);
   const [messages, setMessages] = useContext(MessagesContext);
   const [userInput, setUserInput] = useState("");
@@ -60,8 +65,8 @@ export function ChatWindow(props) {
     <React.Fragment>
       <motion.div id="chat-window">
         <div id="top-bar">
-          <h1 id="header-text">Hi there 👋</h1>
-          <h1 id="description-text">We are away at this momment </h1>
+          <h1 id="header-text">{config.title}</h1>
+          <h1 id="description-text">{config.subtitle}</h1>
         </div>
 
         <div id="text-window">
@@ -80,6 +85,7 @@ export function ChatWindow(props) {
             id="fusion-website-link"
             href="https://fusionhq.co"
             target="_blank"
+            rel="noopener noreferrer"
           >
             powered by Fusion
           </a>

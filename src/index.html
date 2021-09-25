@@ -5,7 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <h1>hello demo page</h1>
+      <p>this is a demo page</p>
+    </div>
+
     <script src="index.bundle.js"></script>
+    <script>
+      window.chatInit({
+        baseUrl: "ws://localhost:8000/ws/chat/",
+        token: "608813b5254914007109279a",
+        primaryColor: "#1890ff",
+        title: "Hi there 😇",
+        subtitle: "Feel free to ask us anything ✨ 😻",
+        agentAvailableText: "We are availble!",
+        agentUnavailableText: "We are not available at the moment.",
+        requireEmailUpfront: true,
+        showAgentAvailability: true,
+      });
+    </script>
   </body>
 </html>
