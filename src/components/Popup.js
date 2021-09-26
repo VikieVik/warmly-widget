@@ -1,11 +1,7 @@
 import React from "react";
 import "../style.css";
 
-console.log("popup");
-
 export function Popup(props) {
-  console.log("popup-1");
-
   var popupMessages = props.chats;
 
   return (

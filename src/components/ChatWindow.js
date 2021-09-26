@@ -5,11 +5,7 @@ import { UserMessageContext } from "./UserMessageContext";
 import { motion } from "framer-motion";
 import { config } from "../config";
 
-console.log("chat-window");
-
 export function ChatWindow(props) {
-  console.log("chat-window-1");
-
   const [userMessage, setUserMessage] = useContext(UserMessageContext);
   const [messages, setMessages] = useContext(MessagesContext);
   const [userInput, setUserInput] = useState("");

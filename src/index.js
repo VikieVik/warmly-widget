@@ -5,19 +5,14 @@ import { App } from "./App.js";
 import { config } from "./config";
 import { readCookie } from "./utils.js";
 
-console.log("Index");
-
 // globle window funtion can be accessed from anywhere in the browser
-window.chatInit = function (customConfig) {
-  console.log("Index-1");
-
+window.fusionChat = function (customConfig) {
   console.log("fusion chat intialized");
 
   // org token
-
-  //setup system config
   let token = customConfig.token;
 
+  //setup system config
   //save config passed by user to local config
   config.baseUrl = customConfig.baseUrl || config.baseUrl;
   config.token = customConfig.token;
@@ -32,12 +27,12 @@ window.chatInit = function (customConfig) {
 
   let fusionSavedCookie = readCookie(`fusion_${token}`);
   let decodedCookie = JSON.parse(decodeURIComponent(fusionSavedCookie));
-  console.log(decodedCookie);
+  //console.log(decodedCookie);
 
   config.userId = decodedCookie.user_id;
   config.deviceId = decodedCookie.device_id;
 
-  console.log(config);
+  //console.log(config);
 
   //create a div, insert into body of main website
   const newElement = document.createElement("div");

@@ -9,11 +9,8 @@ import { config } from "../config";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 
 var client;
-console.log("chat-widget");
 
 export function ChatWidget() {
-  console.log("chat-widget-1");
-
   //check if already intialized(otherwise throws error)
   if (client == undefined) {
     let room = `${config.userId}${config.deviceId}`;
