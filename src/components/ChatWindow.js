@@ -64,7 +64,7 @@ export function ChatWindow(props) {
   return (
     <React.Fragment>
       <motion.div id="chat-window">
-        <div id="top-bar">
+        <div id="top-bar" style={{ background: `${config.primaryColor}` }}>
           <h1 id="header-text">{config.title}</h1>
           <h1 id="description-text">{config.subtitle}</h1>
         </div>
@@ -98,8 +98,13 @@ export function ChatWindow(props) {
             type="text"
             placeholder="Reply here..."
           />
-          <button id="send-button" onClick={handleSendButton}>
+          <button
+            id="send-button"
+            onClick={handleSendButton}
+            style={{ background: `${config.primaryColor}` }}
+          >
             <svg
+              style={{ background: `${config.primaryColor}` }}
               xmlns="http://www.w3.org/2000/svg"
               width="20"
               height="20"
@@ -132,7 +137,12 @@ function ChatBubbleUser(props) {
 function ChatBubbleAgent(props) {
   return (
     <React.Fragment>
-      <div id="agent-chat-bubble">{props.chat}</div>
+      <div
+        id="agent-chat-bubble"
+        style={{ background: `${config.primaryColor}` }}
+      >
+        {props.chat}
+      </div>
     </React.Fragment>
   );
 }

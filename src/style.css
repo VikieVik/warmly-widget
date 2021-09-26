@@ -9,7 +9,6 @@
   right: 20px;
   border: 1px;
   border-radius: 50px;
-  background: #1890ff;
   width: 60px;
   height: 60px;
   cursor: pointer;
@@ -42,7 +41,6 @@
   align-items: flex-start;
   min-height: 100px;
   width: 100%;
-  background: #1890ff;
   border-radius: 15px 15px 0px 0px;
   margin-bottom: auto;
   margin-top: 0px;
@@ -154,16 +152,11 @@
   height: 42px;
   width: 42px;
   border: transparent;
-  background: #1890ff;
   color: #fff;
   margin-top: 0px;
   margin-left: 10px;
   border-radius: 100px;
   cursor: pointer;
-}
-
-#send-button:hover {
-  background: #56adff;
 }
 
 #fusion-website-link {
@@ -207,7 +200,6 @@
   padding: 10px;
   width: fit-content;
   max-width: 85%;
-  background: #1890ff;
   color: #fff;
   border-radius: 10px;
   margin: 10px 0px 10px 10px;

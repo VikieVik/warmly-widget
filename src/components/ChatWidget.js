@@ -46,10 +46,10 @@ export function ChatWidget() {
       client.send(
         JSON.stringify({
           command: "new_message",
-          room_name: "vikas",
-          token: "123456",
-          user_id: "44",
-          device_id: "66",
+          room_name: `${config.userId}${config.userId}`,
+          token: `${config.token}`,
+          user_id: `${config.userId}`,
+          device_id: `${config.deviceId}`,
           from: "user",
           text: `${payloadToSend}`,
         })
@@ -105,6 +105,7 @@ export function ChatWidget() {
           damping: 10,
         }}
         id="chat-widget"
+        style={{ background: `${config.primaryColor}` }}
         onClick={toggleWidget}
       >
         {/** chat widget icon */}
