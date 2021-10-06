@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import "../style.css";
 import { MessagesContext } from "./MessagesContext";
 import { UserMessageContext } from "./UserMessageContext";
@@ -9,6 +9,8 @@ export function ChatWindow(props) {
   const [userMessage, setUserMessage] = useContext(UserMessageContext);
   const [messages, setMessages] = useContext(MessagesContext);
   const [userInput, setUserInput] = useState("");
+
+  const scrollRef = useRef();
 
   // handle input entered in input field
   const handleUserInput = (event) => {
@@ -57,6 +59,11 @@ export function ChatWindow(props) {
   //   };
   // });
 
+  //autoscroll chat window on new messages
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behaviour: "smooth" });
+  }, [messages]);
+
   return (
     <React.Fragment>
       <motion.div id="chat-window">
@@ -69,9 +76,17 @@ export function ChatWindow(props) {
           {/** Render chats */}
           {messages.map((chat, index) => {
             if (chat.author == "user") {
-              return <ChatBubbleUser chat={chat.content} key={index} />;
+              return (
+                <div ref={scrollRef}>
+                  <ChatBubbleUser chat={chat.content} key={index} />
+                </div>
+              );
             } else {
-              return <ChatBubbleAgent chat={chat.content} key={index} />;
+              return (
+                <div ref={scrollRef}>
+                  <ChatBubbleAgent chat={chat.content} key={index} />
+                </div>
+              );
             }
           })}
         </div>

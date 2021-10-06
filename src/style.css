@@ -191,6 +191,7 @@
   font-weight: 300;
   font-size: 14px;
   word-break: break-all;
+  padding-right: 20px;
 }
 
 #agent-chat-bubble {
@@ -208,6 +209,7 @@
   font-weight: 300;
   font-size: 14px;
   word-break: break-all;
+  padding-right: 30px;
 }
 
 /* popup */

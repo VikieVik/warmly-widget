@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import "../style.css";
 import { ChatWindow } from "./ChatWindow";
 import { Popup } from "./Popup";
@@ -11,10 +11,9 @@ import { w3cwebsocket as W3CWebSocket } from "websocket";
 var client;
 
 export function ChatWidget() {
-  //check if already intialized(otherwise throws error)
   if (client == undefined) {
-    let room = `${config.userId}${config.deviceId}`;
-    client = new W3CWebSocket(`${config.baseUrl}${room}/`);
+    let room = `${config.token}`;
+    client = new W3CWebSocket(`${config.baseUrl}/ws/chat/${room}/`);
   }
 
   const [chatWindowDisplay, setChatWindowDisplay] = useState("none");
@@ -54,25 +53,44 @@ export function ChatWidget() {
     }
   };
 
+  const handleSendPrivateRoomInfo = () => {
+    commonRoom.send(
+      JSON.stringify({
+        command: "new_message",
+        room_name: `${config.token}`,
+        token: `${config.token}`,
+        user_id: `${config.userId}`,
+        device_id: `${config.deviceId}`,
+        from: "user",
+        text: `none`,
+      })
+    );
+  };
+
+  // connect to private room and handle incoming messages
   useEffect(() => {
-    //console.log("widget running....");
-    //connecting to web-socket chat server
     client.onopen = () => {
-      console.log("WebSocket Client Connected");
-      //setServerConnected(true);
+      console.log("WebSocket Client Connected - private room");
     };
 
     // receives both chats received from agent and chat delivered from user
     client.onmessage = (message) => {
       let incomingMessage = JSON.parse(message.data).message;
-      //console.log(incomingMessage);
-      let updatedChats = [...chats, incomingMessage];
-      setChats(updatedChats);
-      setMessages(updatedChats);
 
-      if (popupDisplay !== "none") {
-        let updatedMessagesForPopup = [...messagesForPopup, incomingMessage];
-        setMessagesForPopup(updatedMessagesForPopup);
+      //check if message from agent in the room is for this user
+      if (
+        incomingMessage.user_id == config.userId &&
+        incomingMessage.device_id == config.deviceId
+      ) {
+        console.log(incomingMessage);
+        let updatedChats = [...chats, incomingMessage];
+        setChats(updatedChats);
+        setMessages(updatedChats);
+
+        if (popupDisplay !== "none") {
+          let updatedMessagesForPopup = [...messagesForPopup, incomingMessage];
+          setMessagesForPopup(updatedMessagesForPopup);
+        }
       }
     };
   });
