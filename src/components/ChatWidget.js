@@ -42,7 +42,7 @@ export function ChatWidget() {
       client.send(
         JSON.stringify({
           command: "new_message",
-          room_name: `${config.userId}${config.userId}`,
+          room_name: `${config.token}`,
           token: `${config.token}`,
           user_id: `${config.userId}`,
           device_id: `${config.deviceId}`,
@@ -51,20 +51,6 @@ export function ChatWidget() {
         })
       );
     }
-  };
-
-  const handleSendPrivateRoomInfo = () => {
-    commonRoom.send(
-      JSON.stringify({
-        command: "new_message",
-        room_name: `${config.token}`,
-        token: `${config.token}`,
-        user_id: `${config.userId}`,
-        device_id: `${config.deviceId}`,
-        from: "user",
-        text: `none`,
-      })
-    );
   };
 
   // connect to private room and handle incoming messages
