@@ -28,6 +28,7 @@ export function ChatWidget() {
     if (chatWindowDisplay == "none") {
       setChatWindowDisplay("block");
       setChatOpen(true);
+      fetchPreviousChats(config.userId, config.deviceId);
       setPopupDisplay("none");
       setMessagesForPopup([]);
     } else {
@@ -53,6 +54,19 @@ export function ChatWidget() {
     }
   };
 
+  const fetchPreviousChats = (userId, deviceId) => {
+    const preChats = client.send(
+      JSON.stringify({
+        command: "fetch_messages",
+        room_name: `${config.token}`,
+        token: `${config.token}`,
+        user_id: `${config.userId}`,
+        device_id: `${config.deviceId}`,
+      })
+    );
+    //console.log(preChats);
+  };
+
   // connect to private room and handle incoming messages
   useEffect(() => {
     client.onopen = () => {
@@ -61,22 +75,42 @@ export function ChatWidget() {
 
     // receives both chats received from agent and chat delivered from user
     client.onmessage = (message) => {
-      let incomingMessage = JSON.parse(message.data).message;
+      let incomingMessage = JSON.parse(message.data);
 
-      //check if message from agent in the room is for this user
-      if (
-        incomingMessage.user_id == config.userId &&
-        incomingMessage.device_id == config.deviceId
-      ) {
-        console.log(incomingMessage);
-        let updatedChats = [...chats, incomingMessage];
+      let messageContent = incomingMessage.message;
+
+      //let incomingMessage = JSON.parse(message.data).message;
+
+      //if incoming message is a single new message
+      if (incomingMessage.command === "new_message") {
+        //check if message from agent in the room is for this user
+        if (
+          messageContent.user_id == config.userId &&
+          messageContent.device_id == config.deviceId
+        ) {
+          console.log(messageContent);
+          let updatedChats = [...chats, messageContent];
+          setChats(updatedChats);
+          setMessages(updatedChats);
+
+          if (popupDisplay !== "none") {
+            let updatedMessagesForPopup = [...messagesForPopup, messageContent];
+            setMessagesForPopup(updatedMessagesForPopup);
+          }
+        }
+      }
+      // else if incoming message command is messages(last 50 conversation data)
+      else if (incomingMessage.command === "messages") {
+        let lastFiftyChats = incomingMessage.messages
+          .slice(0)
+          .reverse()
+          .map((element) => {
+            return element;
+          });
+        //console.log(lastFiftyChats);
+        let updatedChats = [...lastFiftyChats, ...chats];
         setChats(updatedChats);
         setMessages(updatedChats);
-
-        if (popupDisplay !== "none") {
-          let updatedMessagesForPopup = [...messagesForPopup, incomingMessage];
-          setMessagesForPopup(updatedMessagesForPopup);
-        }
       }
     };
   });
@@ -126,7 +160,7 @@ export function ChatWidget() {
         </svg> */}
 
         {/** smiley chat widget icon */}
-        <svg
+        {/* <svg
           style={{ display: `${popupDisplay}`, marginLeft: "10px" }}
           width="32"
           height="32"
@@ -144,11 +178,15 @@ export function ChatWidget() {
             d="M14 0C6.26953 0 0 6.26801 0 14C0 21.732 6.26953 28 14 28C21.7305 28 28 21.732 28 14C28 6.26801 21.7305 0 14 0ZM10.6719 20.8909C12.9531 23.5727 17.6758 26.2479 23.0781 20.9695C23.4492 20.6084 23.1875 20 22.668 20H11.1172C10.6406 20 10.3633 20.5265 10.6719 20.8909Z"
             fill="white"
           />
-        </svg>
+        </svg> */}
 
         {/** smiley chat widget icon - square*/}
-        {/* <svg
-          style={{ display: `${popupDisplay}`, marginLeft: "10px" }}
+        <svg
+          style={{
+            display: `${popupDisplay}`,
+            marginLeft: "10px",
+            marginTop: "2px",
+          }}
           width="29"
           height="34"
           viewBox="0 0 29 34"
@@ -165,7 +203,7 @@ export function ChatWidget() {
             d="M5 0C2.23858 0 0 2.23858 0 5V24C0 26.7614 2.23858 29 5 29H24C26.7614 29 29 26.7614 29 24V5C29 2.23858 26.7614 0 24 0H5ZM7.61991 20.7588C10.1149 23.5048 15.5688 26.381 22.0771 20.8369C22.4197 20.545 22.2093 20 21.7592 20H7.9821C7.57341 20 7.34508 20.4563 7.61991 20.7588Z"
             fill="white"
           />
-        </svg> */}
+        </svg>
 
         {/** down arrow icon */}
 
