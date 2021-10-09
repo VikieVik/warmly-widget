@@ -108,7 +108,7 @@ export function ChatWidget() {
             return element;
           });
         //console.log(lastFiftyChats);
-        let updatedChats = [...lastFiftyChats, ...chats];
+        let updatedChats = [...lastFiftyChats];
         setChats(updatedChats);
         setMessages(updatedChats);
       }
