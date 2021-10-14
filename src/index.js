@@ -24,6 +24,7 @@ window.fusionChat = function (customConfig) {
   config.showAgentAvailability = customConfig.agentAvailableText;
   config.requireEmailUpfront = customConfig.requireEmailUpfront;
   config.agentUnavailableText = customConfig.showAgentAvailability;
+  config.iconStyle = customConfig.iconStyle;
 
   let fusionSavedCookie = readCookie(`fusion_${token}`);
   let decodedCookie = JSON.parse(decodeURIComponent(fusionSavedCookie));

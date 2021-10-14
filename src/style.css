@@ -2,6 +2,10 @@
 
 /* Chat widget */
 
+body {
+  font-family: "Space Mono", monospace;
+}
+
 #chat-widget {
   position: fixed;
   z-index: 2147483003;
@@ -27,7 +31,7 @@
   box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 40px;
   height: 670px;
   width: 380px;
-  border: 1px solid #dfdfdf;
+  /* border: 1px solid #dfdfdf; */
   border-radius: 20px;
   cursor: pointer;
   transition: max-height 0.2s ease;

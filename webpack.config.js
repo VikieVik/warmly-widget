@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   output: {
     path: path.join(__dirname, "/dist"),
-    filename: "index.bundle.js",
+    filename: "widget.js",
   },
   devServer: {
     port: 3010,

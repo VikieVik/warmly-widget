@@ -2,6 +2,7 @@ export var config = {
   baseUrl: "ws://localhost:8/ws/chat/",
   token: "",
   primaryColor: "#1890ff",
+  iconStyle: "square",
   title: "Welcome to Fusion!",
   subtitle: "Ask us anything in the chat window 😊",
   agentAvailableText: "Agents are online!",

@@ -94,7 +94,7 @@ export function ChatWindow(props) {
         <div id="fusion-branding">
           <a
             id="fusion-website-link"
-            href="https://fusionhq.co"
+            href="https://fusionhq.co?ref=widget-branding"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -112,7 +112,12 @@ export function ChatWindow(props) {
           <button
             id="send-button"
             onClick={handleSendButton}
-            style={{ background: `${config.primaryColor}` }}
+            style={{
+              background: `${config.primaryColor}`,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
             <svg
               style={{ background: `${config.primaryColor}` }}

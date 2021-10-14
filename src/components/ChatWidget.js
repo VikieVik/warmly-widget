@@ -140,12 +140,17 @@ export function ChatWidget() {
           damping: 10,
         }}
         id="chat-widget"
-        style={{ background: `${config.primaryColor}` }}
+        style={{
+          background: `${config.primaryColor}`,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
         onClick={toggleWidget}
       >
         {/** chat widget icon */}
         {/* <svg
-          style={{ display: `${popupDisplay}`, marginLeft: "10px" }}
+          style={{ display: `${popupDisplay}` }}
           width="28"
           height="28"
           viewBox="0 0 28 28"
@@ -158,59 +163,57 @@ export function ChatWidget() {
             fill="white"
           />
         </svg> */}
-
-        {/** smiley chat widget icon */}
-        {/* <svg
-          style={{ display: `${popupDisplay}`, marginLeft: "10px" }}
-          width="32"
-          height="32"
-          viewBox="0 0 28 28"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0.000260353 28L0.000260353 14L14.9336 28L0.000260353 28Z"
-            fill="white"
-          />
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M14 0C6.26953 0 0 6.26801 0 14C0 21.732 6.26953 28 14 28C21.7305 28 28 21.732 28 14C28 6.26801 21.7305 0 14 0ZM10.6719 20.8909C12.9531 23.5727 17.6758 26.2479 23.0781 20.9695C23.4492 20.6084 23.1875 20 22.668 20H11.1172C10.6406 20 10.3633 20.5265 10.6719 20.8909Z"
-            fill="white"
-          />
-        </svg> */}
-
-        {/** smiley chat widget icon - square*/}
-        <svg
-          style={{
-            display: `${popupDisplay}`,
-            marginLeft: "10px",
-            marginTop: "2px",
-          }}
-          width="29"
-          height="34"
-          viewBox="0 0 29 34"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0.669069 33.3918C0.41212 33.6253 -2.38419e-07 33.443 -2.38419e-07 33.0958L-2.38419e-07 24.4C-2.38419e-07 24.1791 0.179086 24 0.4 24H9.96536C10.331 24 10.505 24.45 10.2344 24.696L0.669069 33.3918Z"
-            fill="white"
-          />
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M5 0C2.23858 0 0 2.23858 0 5V24C0 26.7614 2.23858 29 5 29H24C26.7614 29 29 26.7614 29 24V5C29 2.23858 26.7614 0 24 0H5ZM7.61991 20.7588C10.1149 23.5048 15.5688 26.381 22.0771 20.8369C22.4197 20.545 22.2093 20 21.7592 20H7.9821C7.57341 20 7.34508 20.4563 7.61991 20.7588Z"
-            fill="white"
-          />
-        </svg>
+        {config.iconStyle === "circle" ? (
+          /** smiley chat widget icon */
+          <svg
+            style={{ display: `${popupDisplay}` }}
+            width="32"
+            height="32"
+            viewBox="0 0 28 28"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0.000260353 28L0.000260353 14L14.9336 28L0.000260353 28Z"
+              fill="white"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M14 0C6.26953 0 0 6.26801 0 14C0 21.732 6.26953 28 14 28C21.7305 28 28 21.732 28 14C28 6.26801 21.7305 0 14 0ZM10.6719 20.8909C12.9531 23.5727 17.6758 26.2479 23.0781 20.9695C23.4492 20.6084 23.1875 20 22.668 20H11.1172C10.6406 20 10.3633 20.5265 10.6719 20.8909Z"
+              fill="white"
+            />
+          </svg>
+        ) : (
+          /** smiley chat widget icon - square*/
+          <svg
+            style={{
+              display: `${popupDisplay}`,
+              marginTop: "2px",
+            }}
+            width="29"
+            height="34"
+            viewBox="0 0 29 34"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0.669069 33.3918C0.41212 33.6253 -2.38419e-07 33.443 -2.38419e-07 33.0958L-2.38419e-07 24.4C-2.38419e-07 24.1791 0.179086 24 0.4 24H9.96536C10.331 24 10.505 24.45 10.2344 24.696L0.669069 33.3918Z"
+              fill="white"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M5 0C2.23858 0 0 2.23858 0 5V24C0 26.7614 2.23858 29 5 29H24C26.7614 29 29 26.7614 29 24V5C29 2.23858 26.7614 0 24 0H5ZM7.61991 20.7588C10.1149 23.5048 15.5688 26.381 22.0771 20.8369C22.4197 20.545 22.2093 20 21.7592 20H7.9821C7.57341 20 7.34508 20.4563 7.61991 20.7588Z"
+              fill="white"
+            />
+          </svg>
+        )}
 
         {/** down arrow icon */}
-
         <svg
           style={{
             display: `${chatWindowDisplay}`,
-            marginLeft: "15px",
             marginTop: "3px",
           }}
           width="19"
