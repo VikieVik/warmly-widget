@@ -4,9 +4,11 @@ import { ChatWindow } from "./ChatWindow";
 import { Popup } from "./Popup";
 import { MessagesContext } from "./MessagesContext";
 import { UserMessageContext } from "./UserMessageContext";
+import { UserInfoContext } from "./UserInfoContext";
 import { motion } from "framer-motion";
 import { config } from "../config";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
+import { readCookie, createCookie } from "../utils.js";
 
 var client;
 
@@ -21,6 +23,8 @@ export function ChatWidget() {
   const [chats, setChats] = useState([]);
   const [messages, setMessages] = useContext(MessagesContext);
   const [userMessage, setUserMessage] = useContext(UserMessageContext);
+  const [userInfo, setUserInfo] = useContext(UserInfoContext);
+
   const [messagesForPopup, setMessagesForPopup] = useState([]);
   const [chatOpen, setChatOpen] = useState(false);
 
@@ -38,8 +42,32 @@ export function ChatWidget() {
     }
   };
 
+  //set widget cookie to true if email already sent
+  const setWidgetCookie = () => {
+    createCookie(`fusion_widget_${config.token}`, "true", 730);
+  };
+
+  const handleEmailSend = (userInfoToSend) => {
+    if (userInfoToSend !== "") {
+      //console.log("email sending");
+      client.send(
+        JSON.stringify({
+          command: "user_info",
+          room_name: `${config.token}`,
+          token: `${config.token}`,
+          email: `${userInfoToSend}`,
+          user_id: `${config.userId}`,
+          device_id: `${config.deviceId}`,
+          from: "user",
+        })
+      );
+      // setWidgetCookie();
+    }
+  };
+
   const handleWebSocketSend = (payloadToSend) => {
     if (payloadToSend !== "") {
+      //console.log("chat sending");
       client.send(
         JSON.stringify({
           command: "new_message",
@@ -70,7 +98,7 @@ export function ChatWidget() {
   // connect to private room and handle incoming messages
   useEffect(() => {
     client.onopen = () => {
-      console.log("WebSocket Client Connected - private room");
+      //console.log("WebSocket Client Connected - private room");
     };
 
     // receives both chats received from agent and chat delivered from user
@@ -119,8 +147,10 @@ export function ChatWidget() {
   // if yes send it chat-server then empty userMessage context
   useEffect(() => {
     handleWebSocketSend(userMessage);
+    handleEmailSend(userInfo);
     setUserMessage("");
-  }, [userMessage]);
+    setUserInfo("");
+  }, [userMessage, userInfo]);
 
   return (
     <React.Fragment>

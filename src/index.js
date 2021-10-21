@@ -3,11 +3,11 @@ import React, { useContext } from "react";
 import ReactDOM from "react-dom";
 import { App } from "./App.js";
 import { config } from "./config";
-import { readCookie } from "./utils.js";
+import { readCookie, createCookie } from "./utils.js";
 
 // globle window funtion can be accessed from anywhere in the browser
 window.fusionChat = function (customConfig) {
-  console.log("fusion chat intialized");
+  //console.log("fusion chat intialized");
 
   // org token
   let token = customConfig.token;
@@ -32,6 +32,13 @@ window.fusionChat = function (customConfig) {
 
   config.userId = decodedCookie.user_id;
   config.deviceId = decodedCookie.device_id;
+
+  //cookie for storing widget setting eg: email sent or not
+  let fusionWidgetCookie = readCookie(`fusion_widget_${config.token}`);
+  //console.log(fusionWidgetCookie);
+  if (fusionWidgetCookie === null) {
+    createCookie(`fusion_widget_${config.token}`, "false", 730);
+  }
 
   //console.log(config);
 
