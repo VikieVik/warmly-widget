@@ -17,6 +17,7 @@ export function ChatWindow(props) {
   const [inputEnabled, setInputEnabled] = useState("not-allowed");
 
   const scrollRef = useRef();
+  const inputFormRef = useRef();
 
   // handle input entered in input field
   const handleUserInput = (event) => {
@@ -30,6 +31,14 @@ export function ChatWindow(props) {
     setUserEmailInput(event.target.value);
   };
 
+  const isUserEmail = (email) => {
+    if (email.length > 0 && email.indexOf("@") > 0) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   const handleSendButton = () => {
     if (userInput !== "") {
       //handleWebSocketSend(userInput);
@@ -41,6 +50,8 @@ export function ChatWindow(props) {
         setWidgetCookie();
         setEmailVisible("none");
       }
+      // formRef.current.value = "";
+      document.getElementById("text-input").value = "";
     }
   };
 
@@ -48,6 +59,14 @@ export function ChatWindow(props) {
   const setWidgetCookie = () => {
     createCookie(`fusion_widget_${config.token}`, "true", 730);
   };
+
+  useEffect(() => {
+    if (inputEnabled === "pointer") {
+      setInputEnabled("not-allowed");
+    } else {
+      setInputEnabled("pointer");
+    }
+  }, [isUserEmail(userEmailInput)]);
 
   useEffect(() => {
     //get if email was sent prev from widget cookie
@@ -121,7 +140,7 @@ export function ChatWindow(props) {
               id="text-input"
               style={{ cursor: `${inputEnabled}` }}
               type="text"
-              // disabled={false}
+              disabled={isUserEmail(userEmailInput)}
               placeholder="Reply here..."
             />
 
