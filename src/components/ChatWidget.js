@@ -116,7 +116,7 @@ export function ChatWidget() {
           messageContent.user_id == config.userId &&
           messageContent.device_id == config.deviceId
         ) {
-          console.log(messageContent);
+          //console.log(messageContent);
           let updatedChats = [...chats, messageContent];
           setChats(updatedChats);
           setMessages(updatedChats);

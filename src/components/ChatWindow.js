@@ -15,6 +15,7 @@ export function ChatWindow(props) {
   const [userEmailInput, setUserEmailInput] = useState("");
   const [emailVisible, setEmailVisible] = useState("block");
   const [inputEnabled, setInputEnabled] = useState("not-allowed");
+  const [inputDisabled, setInputDisabled] = useState("true");
 
   const scrollRef = useRef();
   const inputFormRef = useRef();
@@ -32,6 +33,9 @@ export function ChatWindow(props) {
   };
 
   const isUserEmail = (email) => {
+    if (localStorage.getItem("emailInput")) {
+      return false;
+    }
     if (email.length > 0 && email.indexOf("@") > 0) {
       return false;
     } else {
@@ -43,15 +47,19 @@ export function ChatWindow(props) {
     if (userInput !== "") {
       //handleWebSocketSend(userInput);
       // save Message to send into userMessage context
+      let userEmail = localStorage.getItem("emailInput");
       setUserMessage(userInput);
       //set user email to context
-      if (userEmailInput !== "") {
+      if (userEmailInput !== "" && !userEmail) {
         setUserInfo(userEmailInput);
+
         setWidgetCookie();
         setEmailVisible("none");
+        localStorage.setItem("emailInput", true);
       }
       // formRef.current.value = "";
       document.getElementById("text-input").value = "";
+      // document.getElementById("email-input").value = "";
     }
   };
 
@@ -129,8 +137,9 @@ export function ChatWindow(props) {
             style={{ display: `${emailVisible}` }}
             id="email-input"
             onChange={handleEmailInput}
-            type="email"
-            placeholder="Enter your email first..."
+            type="text"
+            autoFocus
+            placeholder="Enter your email"
           />
 
           <div id="divider" style={{ display: `${emailVisible}` }}></div>
@@ -141,7 +150,7 @@ export function ChatWindow(props) {
               style={{ cursor: `${inputEnabled}` }}
               type="text"
               disabled={isUserEmail(userEmailInput)}
-              placeholder="Reply here..."
+              placeholder="Reply here"
             />
 
             <button
