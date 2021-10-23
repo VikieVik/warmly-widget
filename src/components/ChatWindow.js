@@ -79,7 +79,7 @@ export function ChatWindow(props) {
   useEffect(() => {
     //get if email was sent prev from widget cookie
     var fusionWidgetCookie = readCookie(`fusion_widget_${config.token}`);
-    console.log(fusionWidgetCookie);
+    //console.log(fusionWidgetCookie);
     if (fusionWidgetCookie === "false") {
       setEmailVisible("block");
       setInputEnabled("not-allowed");
@@ -128,7 +128,7 @@ export function ChatWindow(props) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            powered by Fusion
+            Powered by Fusion
           </a>
         </div>
 
@@ -139,7 +139,7 @@ export function ChatWindow(props) {
             onChange={handleEmailInput}
             type="text"
             autoFocus
-            placeholder="Enter your email"
+            placeholder="What's your email address ?"
           />
 
           <div id="divider" style={{ display: `${emailVisible}` }}></div>
@@ -151,10 +151,12 @@ export function ChatWindow(props) {
               type="text"
               disabled={isUserEmail(userEmailInput)}
               placeholder="Reply here"
+              className="fusion-no-capture"
             />
 
             <button
               id="send-button"
+              className="fusion-no-capture"
               onClick={handleSendButton}
               style={{
                 background: `${config.primaryColor}`,

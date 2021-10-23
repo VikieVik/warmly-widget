@@ -3,10 +3,11 @@
 /* Chat widget */
 
 body {
-  font-family: "Space Mono", monospace;
+  font-family: Be Vietnam Pro, sans-serif;
 }
 
 #chat-widget {
+  font-family: Be Vietnam Pro, sans-serif;
   position: fixed;
   z-index: 2147483003;
   bottom: 20px;
@@ -43,6 +44,7 @@ body {
 }
 
 #top-bar {
+  font-family: Be Vietnam Pro, sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -55,6 +57,7 @@ body {
 }
 
 #header-text {
+  font-family: Be Vietnam Pro, sans-serif;
   color: #fff;
   margin: 0px 0px 10px 20px;
   padding-top: 20px;
@@ -63,14 +66,16 @@ body {
 }
 
 #description-text {
+  font-family: Be Vietnam Pro, sans-serif;
   color: #fff;
   margin: 0px 0px 0px 20px;
   padding-bottom: 10px;
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 #text-window {
+  font-family: Be Vietnam Pro, sans-serif;
   height: 480px;
   width: 100%;
   margin-bottom: auto;
@@ -82,6 +87,7 @@ body {
 }
 
 #fusion-branding {
+  font-family: Be Vietnam Pro, sans-serif;
   height: 30px;
   display: flex;
   flex-direction: column;
@@ -97,6 +103,7 @@ body {
 }
 
 #fusion-website-link {
+  font-family: Be Vietnam Pro, sans-serif;
   text-decoration: none;
   font-size: 13px;
   font-weight: 400;
@@ -104,6 +111,7 @@ body {
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   backdrop-filter: blur(1px);
+  margin-bottom: 5px;
 }
 
 #fusion-website-link:hover {
@@ -112,6 +120,7 @@ body {
 }
 
 #input-section {
+  font-family: Be Vietnam Pro, sans-serif;
   min-height: 65px;
   width: 100%;
   display: flex;
@@ -121,70 +130,77 @@ body {
   align-items: center;
 }
 
+#email-input {
+  font-family: Be Vietnam Pro, sans-serif;
+  border: transparent;
+  border-color: transparent;
+  font-size: 15px;
+  height: 10px;
+  line-height: 15px;
+  font-weight: 300;
+  width: 85%;
+  outline: none;
+  padding: 10px;
+  margin: 2px 0px 2px 0px;
+  overflow-y: scroll;
+  overflow-x: unset;
+  color: #000;
+}
+
 #divider {
   height: 1px;
-  margin: 10px 0px 10px 0px;
+  margin: 5px 0px 5px 0px;
   width: 85%;
   background-color: #ececec;
 }
 
 #input-section-2 {
+  font-family: Be Vietnam Pro, sans-serif;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0px 0px 8px 0px;
+  margin: 0px 0px 5px 0px;
 }
 
 #text-input {
-  height: 20px;
+  font-family: Be Vietnam Pro, sans-serif;
   border: transparent;
   border-color: transparent;
   font-size: 15px;
+  height: 10px;
+  line-height: 15px;
   font-weight: 300;
   width: 70%;
   outline: none;
   padding: 10px;
   overflow-y: scroll;
   overflow-x: unset;
-}
-
-#email-input {
-  height: 20px;
-  border: transparent;
-  border-color: transparent;
-  font-size: 15px;
-  font-weight: 300;
-  width: 85%;
-  outline: none;
-  padding: 10px;
-  margin-top: 10px;
-  overflow-y: scroll;
-  overflow-x: unset;
+  color: #000;
 }
 
 #text-input::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   color: #949494;
-  font-size: "20px";
+  font-size: 15px;
   font-weight: 300;
 }
 #text-input::-moz-placeholder {
   /* Firefox 19+ */
   color: #949494;
-  font-size: "20px";
+  font-size: 15px;
   font-weight: 300;
 }
 #text-input:-ms-input-placeholder {
   /* IE 10+ */
   color: #949494;
-  font-size: "20px";
+  font-size: 15px;
   font-weight: 300;
 }
 #text-input:-moz-placeholder {
   /* Firefox 18- */
   color: #949494;
-  font-size: "20px";
+  font-size: 15px;
   font-weight: 300;
 }
 
@@ -216,6 +232,7 @@ body {
 
 /* chat-bubbules */
 #user-chat-bubble {
+  font-family: Be Vietnam Pro, sans-serif;
   min-height: 20px;
   display: flex;
   justify-content: center;
@@ -235,6 +252,7 @@ body {
 }
 
 #agent-chat-bubble {
+  font-family: Be Vietnam Pro, sans-serif;
   min-height: 20px;
   display: flex;
   justify-content: center;
@@ -273,6 +291,7 @@ body {
 }
 
 #popup-bubble {
+  font-family: Be Vietnam Pro, sans-serif;
   display: flex;
   justify-content: center;
   white-space: pre-line;
@@ -300,8 +319,8 @@ body {
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   #chat-widget {
-    bottom: 10px;
-    right: 10px;
+    bottom: 20px;
+    right: 20px;
   }
   /* Chat window */
 
