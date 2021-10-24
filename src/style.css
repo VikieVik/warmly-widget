@@ -6,9 +6,21 @@ body {
   font-family: Be Vietnam Pro, sans-serif;
 }
 
+#parent-box {
+  position: fixed;
+  z-index: 2147483003;
+  bottom: 0;
+  right: 0;
+  width: 400px;
+  display: flex;
+  flex-direction: column-reverse;
+  height: 100vh;
+  background-color: transparent;
+}
+
 #chat-widget {
   font-family: Be Vietnam Pro, sans-serif;
-  position: fixed;
+  position: absolute;
   z-index: 2147483003;
   bottom: 20px;
   right: 20px;
@@ -18,19 +30,20 @@ body {
   height: 60px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  margin-top: 20%;
 }
 
 /* Chat window */
 
 #chat-window {
   font-family: Be Vietnam Pro, sans-serif;
-  position: fixed;
+  position: absolute;
   z-index: 2147483003;
+  top: 30px;
   bottom: 100px;
   right: 20px;
   background: #fff;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 40px;
-  height: 85vh;
   width: 380px;
   /* border: 1px solid #dfdfdf; */
   border-radius: 20px;
@@ -76,7 +89,7 @@ body {
 
 #text-window {
   font-family: Be Vietnam Pro, sans-serif;
-  height: 480px;
+  height: 60vh;
   width: 100%;
   margin-bottom: auto;
   background: #fafafa;
@@ -121,12 +134,12 @@ body {
 
 #input-section {
   font-family: Be Vietnam Pro, sans-serif;
-  min-height: 65px;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 5px 0px 0px 0px;
+  padding: 5px 0px 5px 0px;
   align-items: center;
 }
 
@@ -168,7 +181,7 @@ body {
   border: transparent;
   border-color: transparent;
   font-size: 15px;
-  height: 10px;
+  height: 20px;
   line-height: 15px;
   font-weight: 300;
   width: 70%;
@@ -318,41 +331,37 @@ body {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+  /* #parent-box {
+    display: flex;
+    flex-direction: column-reverse;
+    height: 100vh;
+    background-color: transparent;
+  }
+
   #chat-widget {
     bottom: 20px;
     right: 20px;
   }
-  /* Chat window */
-
+  */
   #chat-window {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    bottom: 12%;
-    right: 0px;
-    background: #fff;
-    height: 88%;
-    width: 100%;
-    border-radius: 0px;
+    top: 100px;
+    right: 5vw;
+    width: 90vw;
     border: none;
   }
   #top-bar {
     min-height: 100px;
     width: 100%;
-    border-radius: 0px;
     margin-top: 0px;
   }
 
   #header-text {
-    margin: 0px 0px 5px 10px;
     padding-top: 15px;
     font-weight: 400;
     font-size: 25px;
   }
 
   #description-text {
-    margin: 0px 0px 0px 10px;
     font-size: 15px;
     font-weight: 300;
   }

@@ -153,7 +153,30 @@ export function ChatWidget() {
   }, [userMessage, userInfo]);
 
   return (
-    <React.Fragment>
+    <div id="parent-box">
+      <motion.div
+        animate={chatOpen ? "open" : "closed"}
+        initial="closed"
+        variants={{
+          closed: { opacity: 0 },
+          open: { opacity: 1 },
+        }}
+        transition={{ duration: 0.05, ease: "easeIn" }}
+      >
+        <ChatWindow />
+      </motion.div>
+
+      <motion.div
+        animate={chatOpen ? "closed" : "open"}
+        initial="closed"
+        variants={{
+          closed: { opacity: 0 },
+          open: { opacity: 1 },
+        }}
+        transition={{ duration: 0.05, ease: "easeIn" }}
+      >
+        <Popup chats={messagesForPopup} />
+      </motion.div>
       <motion.button
         animate={{
           Y: 0,
@@ -261,30 +284,6 @@ export function ChatWidget() {
           />
         </svg>
       </motion.button>
-
-      <motion.div
-        animate={chatOpen ? "open" : "closed"}
-        initial="closed"
-        variants={{
-          closed: { opacity: 0 },
-          open: { opacity: 1 },
-        }}
-        transition={{ duration: 0.05, ease: "easeIn" }}
-      >
-        <ChatWindow />
-      </motion.div>
-
-      <motion.div
-        animate={chatOpen ? "closed" : "open"}
-        initial="closed"
-        variants={{
-          closed: { opacity: 0 },
-          open: { opacity: 1 },
-        }}
-        transition={{ duration: 0.05, ease: "easeIn" }}
-      >
-        <Popup chats={messagesForPopup} />
-      </motion.div>
-    </React.Fragment>
+    </div>
   );
 }
