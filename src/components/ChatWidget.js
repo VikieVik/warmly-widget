@@ -19,6 +19,7 @@ export function ChatWidget() {
   }
 
   const [chatWindowDisplay, setChatWindowDisplay] = useState("none");
+  const [parentBoxHeight, setParentBoxHeight] = useState("0vh");
   const [popupDisplay, setPopupDisplay] = useState("block");
   const [chats, setChats] = useState([]);
   const [messages, setMessages] = useContext(MessagesContext);
@@ -32,11 +33,13 @@ export function ChatWidget() {
     if (chatWindowDisplay == "none") {
       fetchPreviousChats(config.userId, config.deviceId);
       setChatWindowDisplay("block");
+      setParentBoxHeight("100vh");
       setPopupDisplay("none");
       setMessagesForPopup([]);
       setChatOpen(true);
     } else {
       setChatWindowDisplay("none");
+      setParentBoxHeight("0vh");
       setPopupDisplay("block");
       setChatOpen(false);
     }
@@ -153,7 +156,7 @@ export function ChatWidget() {
   }, [userMessage, userInfo]);
 
   return (
-    <div id="parent-box">
+    <div id="parent-box" style={{ height: `${parentBoxHeight}` }}>
       <motion.div
         animate={chatOpen ? "open" : "closed"}
         initial="closed"

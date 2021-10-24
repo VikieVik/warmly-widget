@@ -11,10 +11,9 @@ body {
   z-index: 2147483003;
   bottom: 0;
   right: 0;
-  width: 400px;
+  width: 300px;
   display: flex;
   flex-direction: column-reverse;
-  height: 100vh;
   background-color: transparent;
 }
 
