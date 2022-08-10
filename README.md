@@ -1,17 +1,19 @@
-# fusion-chat-widget
+# Warmly-live-session-widget
 
-Live chat widget for fusion
+Live session widget for Warmly
 
-# example usage
+# Production usage for client example usage
 
     below snippet needs to included inside head tag
 
 ```
-   <script src="widget.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/rrweb@latest/dist/rrweb-all.min.js"></script>
+    <script src="widget.js"></script>
     <script>
       window.fusionChat({
-        baseUrl: "wss://fusion-chat-backend.herokuapp.com",
-        token: "608813b5254914007109279a",
+        // baseUrl: "wss://fusion-chat-backend.herokuapp.com",
+        baseUrl: "SOCKET_IO_SERVER_URL",
+        token: "RANDOM_API_TOKEN",
         primaryColor: "#0B1C48",
         iconStyle: "square",
         title: "Hi there 😇",
