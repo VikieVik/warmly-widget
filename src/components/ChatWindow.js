@@ -17,9 +17,6 @@ export function ChatWindow(props) {
   const [inputEnabled, setInputEnabled] = useState("not-allowed");
   const [inputDisabled, setInputDisabled] = useState("true");
 
-  const scrollRef = useRef();
-  const inputFormRef = useRef();
-
   // handle input entered in input field
   const handleUserInput = (event) => {
     event.preventDefault();
@@ -62,37 +59,6 @@ export function ChatWindow(props) {
       // document.getElementById("email-input").value = "";
     }
   };
-
-  //set widget cookie to true if email already sent
-  const setWidgetCookie = () => {
-    createCookie(`fusion_widget_${config.token}`, "true", 730);
-  };
-
-  useEffect(() => {
-    if (inputEnabled === "pointer") {
-      setInputEnabled("not-allowed");
-    } else {
-      setInputEnabled("pointer");
-    }
-  }, [isUserEmail(userEmailInput)]);
-
-  useEffect(() => {
-    //get if email was sent prev from widget cookie
-    var fusionWidgetCookie = readCookie(`fusion_widget_${config.token}`);
-    //console.log(fusionWidgetCookie);
-    if (fusionWidgetCookie === "false") {
-      setEmailVisible("block");
-      setInputEnabled("not-allowed");
-    } else {
-      setEmailVisible("none");
-      setInputEnabled("pointer");
-    }
-  }, []);
-
-  //autoscroll chat window on new messages
-  useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behaviour: "smooth" });
-  }, [messages]);
 
   return (
     <React.Fragment>

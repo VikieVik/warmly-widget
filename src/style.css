@@ -2,10 +2,6 @@
 
 /* Chat widget */
 
-body {
-  font-family: Be Vietnam Pro, sans-serif;
-}
-
 #parent-box {
   position: fixed;
   z-index: 2147483003;

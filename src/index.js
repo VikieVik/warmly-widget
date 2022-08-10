@@ -11,7 +11,8 @@ window.fusionChat = function (customConfig) {
   //console.log("fusion chat intialized");
 
   // org token
-  let token = customConfig.token;
+  let token = customConfig.token,
+    baseUrl = customConfig.baseUrl;
 
   //setup system config
   //save config passed by user to local config
@@ -28,29 +29,15 @@ window.fusionChat = function (customConfig) {
   config.iconStyle = customConfig.iconStyle;
 
   let fusionSavedCookie = readCookie(`fusion_${token}`);
-
   if (fusionSavedCookie === null) {
     let visitorUserId = generateUUID();
     createCookie(`fusion_${token}`, `${visitorUserId}`, 730);
   }
-
-  let decodedCookie = JSON.parse(decodeURIComponent(fusionSavedCookie));
-
-  config.userId = decodedCookie.user_id;
-  config.deviceId = decodedCookie.device_id;
-
-  //cookie for storing widget setting eg: email sent or not
-  let fusionWidgetCookie = readCookie(`fusion_widget_${config.token}`);
-  console.log(fusionWidgetCookie);
-
-  if (fusionWidgetCookie === null) {
-    createCookie(`fusion_widget_${config.token}`, "false", 730);
-  }
+  let decodedUserId = decodeURIComponent(fusionSavedCookie);
+  config.userId = decodedUserId;
 
   //start live session before widget
-  startLiveSession();
-
-  //console.log(config);
+  startLiveSession({ token, baseUrl });
 
   //create a div, insert into body of main website
   const newElement = document.createElement("div");
