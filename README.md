@@ -2,6 +2,11 @@
 
 Live session widget for Warmly
 
+
+# Demo & Setup
+
+https://www.loom.com/share/8cf5d7ec51b147149aeccef83192c5b1
+
 # Development usage
 
 1. `npm install` for installing dependancies
