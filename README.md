@@ -2,26 +2,30 @@
 
 Live session widget for Warmly
 
-# Production usage for client example usage
+# Development usage
 
-    below snippet needs to included inside head tag
+1 `npm install` for installing dependancies
+2 `npm run serve` will start development server at localhost:3010
+with a demo website where widget is inserted
+4 Clone https://github.com/singh-vikas-m/live-record-replay-website repo and run server & replayer code from setup video of that project.
+As soon as you go to localhost:3010 you will see live replay on the replayer site given server is running(at localhost:3000) & api url & token is same for all 3 codes.
+3 `npm run build` will bundle all code to single js & html file. Now you can deploy the widget.js fle from dict folder to CDN and use it on client site using below snippet
+
+# Production usage for client example usage()
+
+    below snippet needs to included inside head tag, replace widget.js to cdn url of your widget.js & change baseUrl & token with your socket server url & token
 
 ```
-    <script src="https://cdn.jsdelivr.net/npm/rrweb@latest/dist/rrweb-all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/rrweb@latest/dist/rrweb-all.min.js"></script>
     <script src="widget.js"></script>
     <script>
       window.fusionChat({
         // baseUrl: "wss://fusion-chat-backend.herokuapp.com",
-        baseUrl: "SOCKET_IO_SERVER_URL",
-        token: "RANDOM_API_TOKEN",
+        baseUrl: "http://localhost:3000",
+        token: "SqFR5uoLEUX8Qzuo66xF686qxf23",
         primaryColor: "#0B1C48",
-        iconStyle: "square",
         title: "Hi there 😇",
         subtitle: "Feel free to ask us anything ✨ 😻",
-        agentAvailableText: "We are available!",
-        agentUnavailableText: "We are not available at the moment.",
-        requireEmailUpfront: true,
-        showAgentAvailability: true,
       });
     </script>
 ```
