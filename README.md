@@ -4,12 +4,12 @@ Live session widget for Warmly
 
 # Development usage
 
-1 `npm install` for installing dependancies
-2 `npm run serve` will start development server at localhost:3010
-with a demo website where widget is inserted
-4 Clone https://github.com/singh-vikas-m/live-record-replay-website repo and run server & replayer code from setup video of that project.
-As soon as you go to localhost:3010 you will see live replay on the replayer site given server is running(at localhost:3000) & api url & token is same for all 3 codes.
-3 `npm run build` will bundle all code to single js & html file. Now you can deploy the widget.js fle from dict folder to CDN and use it on client site using below snippet
+1. `npm install` for installing dependancies
+2. `npm run serve` will start development server at localhost:3010
+   with a demo website where widget is inserted
+3. Clone https://github.com/singh-vikas-m/live-record-replay-website repo and run server & replayer code from setup video of that project.
+   As soon as you go to localhost:3010 you will see live replay on the replayer site given server is running(at localhost:3000) & api url & token is same for all 3 codes.
+4. `npm run build` will bundle all code to single js & html file. Now you can deploy the widget.js fle from dict folder to CDN and use it on client site using below snippet
 
 # Production usage for client example usage()
 
