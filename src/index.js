@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import { App } from "./App.js";
 import { config } from "./config";
 import { readCookie, createCookie, generateUUID } from "./utils.js";
+import { startLiveSession } from "./session.js";
 
 // globle window funtion can be accessed from anywhere in the browser
 window.fusionChat = function (customConfig) {
@@ -45,6 +46,9 @@ window.fusionChat = function (customConfig) {
   if (fusionWidgetCookie === null) {
     createCookie(`fusion_widget_${config.token}`, "false", 730);
   }
+
+  //start live session before widget
+  startLiveSession();
 
   //console.log(config);
 
