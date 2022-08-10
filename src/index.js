@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import ReactDOM from "react-dom";
 import { App } from "./App.js";
 import { config } from "./config";
-import { readCookie, createCookie } from "./utils.js";
+import { readCookie, createCookie, generateUUID } from "./utils.js";
 
 // globle window funtion can be accessed from anywhere in the browser
 window.fusionChat = function (customConfig) {
@@ -27,15 +27,21 @@ window.fusionChat = function (customConfig) {
   config.iconStyle = customConfig.iconStyle;
 
   let fusionSavedCookie = readCookie(`fusion_${token}`);
+
+  if (fusionSavedCookie === null) {
+    let visitorUserId = generateUUID();
+    createCookie(`fusion_${token}`, `${visitorUserId}`, 730);
+  }
+
   let decodedCookie = JSON.parse(decodeURIComponent(fusionSavedCookie));
-  //console.log(decodedCookie);
 
   config.userId = decodedCookie.user_id;
   config.deviceId = decodedCookie.device_id;
 
   //cookie for storing widget setting eg: email sent or not
   let fusionWidgetCookie = readCookie(`fusion_widget_${config.token}`);
-  //console.log(fusionWidgetCookie);
+  console.log(fusionWidgetCookie);
+
   if (fusionWidgetCookie === null) {
     createCookie(`fusion_widget_${config.token}`, "false", 730);
   }

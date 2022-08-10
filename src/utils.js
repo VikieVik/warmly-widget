@@ -30,4 +30,21 @@ function createCookie(name, value, days) {
   document.cookie = name + "=" + value + expires + "; path=/; domain=" + domain;
 }
 
-export { readCookie, createCookie };
+// Function Definition: Returns cryotographically unique user ids
+/** older version
+    function generateUserId() {
+      const typedArray = new Uint8Array(10);
+      const randomValues = window.crypto.getRandomValues(typedArray);
+      return randomValues.join("");
+    }
+     */
+// RFC4122 version 4 compliant
+function generateUUID() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
+export { readCookie, createCookie, generateUUID };
