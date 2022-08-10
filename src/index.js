@@ -28,6 +28,7 @@ window.fusionChat = function (customConfig) {
   config.agentUnavailableText = customConfig.showAgentAvailability;
   config.iconStyle = customConfig.iconStyle;
 
+  // get user_id saved in cookies, if no user_id create one
   let fusionSavedCookie = readCookie(`fusion_${token}`);
   if (fusionSavedCookie === null) {
     let visitorUserId = generateUUID();
@@ -39,12 +40,12 @@ window.fusionChat = function (customConfig) {
   //start live session before widget
   startLiveSession({ token, baseUrl });
 
-  //create a div, insert into body of main website
+  //create a div, insert into body of client website
   const newElement = document.createElement("div");
   newElement.setAttribute("id", `app_${token}`);
   document.body.appendChild(newElement);
 
-  //use above created div to render react component
+  //use above created div & inject widget UI in client website
   const appElement = document.getElementById(`app_${token}`);
   ReactDOM.render(<App config={customConfig} />, appElement);
 };

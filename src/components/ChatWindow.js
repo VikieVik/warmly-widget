@@ -12,7 +12,6 @@ export function ChatWindow(props) {
   const [userInfo, setUserInfo] = useContext(UserInfoContext);
   const [messages, setMessages] = useContext(MessagesContext);
   const [userInput, setUserInput] = useState("");
-  const [userEmailInput, setUserEmailInput] = useState("");
   const [emailVisible, setEmailVisible] = useState("block");
   const [inputEnabled, setInputEnabled] = useState("not-allowed");
   const [inputDisabled, setInputDisabled] = useState("true");
@@ -37,26 +36,6 @@ export function ChatWindow(props) {
       return false;
     } else {
       return true;
-    }
-  };
-
-  const handleSendButton = () => {
-    if (userInput !== "") {
-      //handleWebSocketSend(userInput);
-      // save Message to send into userMessage context
-      let userEmail = localStorage.getItem("emailInput");
-      setUserMessage(userInput);
-      //set user email to context
-      if (userEmailInput !== "" && !userEmail) {
-        setUserInfo(userEmailInput);
-
-        setWidgetCookie();
-        setEmailVisible("none");
-        localStorage.setItem("emailInput", true);
-      }
-      // formRef.current.value = "";
-      document.getElementById("text-input").value = "";
-      // document.getElementById("email-input").value = "";
     }
   };
 
@@ -90,32 +69,27 @@ export function ChatWindow(props) {
         <div id="fusion-branding">
           <a
             id="fusion-website-link"
-            href="https://fusionhq.co?ref=widget-branding"
+            href="https://warmly.ai?ref=widget-branding"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Powered by Fusion
+            Powered by Warmly
           </a>
         </div>
 
         <div id="input-section">
           <input
-            style={{ display: `${emailVisible}` }}
             id="email-input"
-            onChange={handleEmailInput}
             type="text"
             autoFocus
             placeholder="What's your email address ?"
           />
 
-          <div id="divider" style={{ display: `${emailVisible}` }}></div>
+          <div id="divider"></div>
           <div id="input-section-2">
             <input
-              onChange={handleUserInput}
               id="text-input"
-              style={{ cursor: `${inputEnabled}` }}
               type="text"
-              disabled={isUserEmail(userEmailInput)}
               placeholder="Reply here"
               className="fusion-no-capture"
             />
@@ -123,7 +97,6 @@ export function ChatWindow(props) {
             <button
               id="send-button"
               className="fusion-no-capture"
-              onClick={handleSendButton}
               style={{
                 background: `${config.primaryColor}`,
                 display: "flex",
@@ -151,27 +124,6 @@ export function ChatWindow(props) {
           </div>
         </div>
       </motion.div>
-    </React.Fragment>
-  );
-}
-
-function ChatBubbleUser(props) {
-  return (
-    <React.Fragment>
-      <div id="user-chat-bubble">{props.chat}</div>
-    </React.Fragment>
-  );
-}
-
-function ChatBubbleAgent(props) {
-  return (
-    <React.Fragment>
-      <div
-        id="agent-chat-bubble"
-        style={{ background: `${config.primaryColor}` }}
-      >
-        {props.chat}
-      </div>
     </React.Fragment>
   );
 }
